@@ -1,63 +1,108 @@
 #include <iostream>
-#include <stdlib.h>
-#include <time.h>
+#include "sim.h"
 
 using namespace std;
 
+Sim sim;
+
+void displayMenu() {
+	cout << "=====================================================" << endl;
+	cout << " \t\tMONTY HALL SIMULATOR \t" << endl;
+	cout << "=====================================================" << endl;
+	cout << " 1.Run Total Simulation" << endl;
+	cout << " 2.Run Just Switching" << endl;
+	cout << " 3.Run Just Staying" << endl;
+	cout << " 4.Change Variables" << endl;
+	cout << " 5.Quit" << endl;
+}
+
+void runTotalSim() {
+	sim.runAll();
+}
+
+void runJustSwitch() {
+	sim.printSwitch();
+}
+
+void runJustStay() {
+	sim.printNoSwitch();
+}
+
+void runChangeVariables() {
+	cout << "Number of Trials: " << sim.getTrials() << endl;
+	cout << "Number of Doors: " << sim.getDoors() << endl;
+
+	int newVar;
+	cout << "Change Trials: ";
+	cin >> newVar;
+	sim.setTrials(newVar);
+	cout << "Change Doors: ";
+	cin >> newVar;
+	sim.setDoors(newVar);
+
+	cout << "Number of Trials: " << sim.getTrials() << endl;
+	cout << "Number of Doors: " << sim.getDoors() << endl;
+}
+
 int main (int argc, char*argv[]) {
 
-	int noSwitch = 0;
-	int trials = 1000000;	
-	srand(time(NULL));
-	for (int j = 0; j < trials; j++) {
-	
-	int guess;
-
-	guess = rand() % 3;
-
-	int car = rand() % 3;
-
-	int doors [3] = {};
-	for(int i = 0; i < 3; i++) {
-		doors[i] = 0;
-	}
-	doors[car] = 1;
-	
-	if (guess == car) {
-		noSwitch++;
-	}
-	
-	}
-	
-
-	double percentNoSwitch = noSwitch/1.0;
-	percentNoSwitch = percentNoSwitch/trials*100;
-	cout << fixed << percentNoSwitch << endl;
-
-	int Switch = 0;
-	
-	for (int j = 0; j < trials; j++) {
-		int guess;
-		
-		guess = rand() % 3;
-
-		int car = rand() % 3;
-
-		int doors [3] = {};
-
-		for (int i = 0; i < 3; i++) {
-			doors[i] = 0;
+	int choice;
+	do {		
+		cout << "\n\n" << endl;
+		displayMenu();
+		cout << "Enter choice: ";
+		cin >> choice;
+		switch (choice) {
+			case 1:
+				cout << "\n\n" << endl;
+				runTotalSim();
+				char cont;
+				do {
+					cout << "Continue? [Y/N]: ";
+					cin >> cont;
+					if (cont == 'Y' || cont == 'y') {
+						break;
+					} else if (cont == 'N' || cont == 'n') {
+						return 0;
+					}
+				} while (cont != 'N' || cont != 'n');
+				break;
+			case 2:
+				cout << "\n\n" << endl;
+				runJustSwitch();
+				do {
+					cout << "Continue? [Y/N]: ";
+					cin >> cont;
+					if (cont == 'Y' || cont == 'y') {
+						break;
+					} else if (cont == 'N' || cont == 'n') {
+						return 0;
+					}
+				} while (cont != 'N' || cont != 'n');
+				break;
+			case 3:
+				cout << "\n\n" << endl;
+				runJustStay();
+				do {
+					cout << "Continue? [Y/N]: ";
+					cin >> cont;
+					if (cont == 'Y' || cont == 'y') {
+						break;
+					} else if (cont == 'N' || cont == 'n') {
+						return 0;
+					}
+				} while (cont != 'N' || cont != 'n');
+				break;
+			case 4:
+				cout << "\n\n" << endl;
+				runChangeVariables();
+				break;
+			case 5:
+				return 0;
+				break;
+			default:
+				cout<<"Invalid Choice";
+				break;
 		}
-		doors[car] = 1;
-
-		if (doors[guess] == 0) {
-			Switch++;
-		}
-	}
-	
-	double percentSwitch = Switch/1.0;
-	percentSwitch = percentSwitch/trials*100;
-
-	cout << fixed << percentSwitch << endl;
-	return 0;
+	} while (choice != 5);
 }

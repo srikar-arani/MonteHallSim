@@ -6,7 +6,7 @@ BINARIES = mh
 
 all: ${BINARIES}
 
-mh: main.o
+mh: main.o sim.o
 	${CXX} $^ -o MonteHallSim
 
 clean:
