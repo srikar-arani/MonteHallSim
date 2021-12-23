@@ -50,20 +50,7 @@ void Sim::runAll() {
 	cout << fixed << "Percent of times that switching gets car: " << percentSwitch << endl;
 }
 
-int Sim::runNoSwitch() {	
-	/*	int guess;
-
-		guess = rand() % 3;
-
-		int car = rand() % 3;
-
-		int doors [3] = {};
-
-		for(int i = 0; i < 3; i++) {
-		doors[i] = 0;
-		}
-		doors[car] = 1;
-	 */
+int Sim::runNoSwitch() {
 	if (guess == car) {
 		return 1;
 	}
@@ -71,19 +58,6 @@ int Sim::runNoSwitch() {
 }
 
 int Sim::runSwitch() {
-	/*	int guess;
-
-		guess = rand() % 3;
-
-		int car = rand() % 3;
-
-		int doors [3] = {};
-
-		for (int i = 0; i < 3; i++) {
-		doors[i] = 0;
-		}
-		doors[car] = 1;
-	 */
 	if (doors[guess] == 0) {
 		return 1;
 	}
